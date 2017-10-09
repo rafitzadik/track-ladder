@@ -68,10 +68,10 @@ def find_ladder(image, depth, net, rs_dev):
     mask = cv2.bitwise_or(mask, mask2)
     
     dpt_masked = np.ma.array(depth, mask=mask)
-    dpt_masked = np.ma.masked_outside(dpt_masked, 1000, 10000) #further mask values below 1m or above 10m
+    dpt_masked = np.ma.masked_outside(dpt_masked, 700, 10000) #further mask values below 70cm or above 10m
     #Option 0 - find the average... not a great option    
     #likely_depth = np.ma.average(dpt_masked)
-    depth_hist, bin_edges = np.histogram(np.ma.compressed(dpt_masked), 90, (1000, 10000)) #calculate the histogram of values between 70cm and 10m
+    depth_hist, bin_edges = np.histogram(np.ma.compressed(dpt_masked), 93, (700, 10000)) #calculate the histogram of values between 70cm and 10m
     #Option 1 to find the likely depth: the histogram bin with the most values
     #likely_depth = bin_edges[np.argmax(depth_hist)] #the bin with the most values
     #Option 2: the smallest (closest) bin with meaningful values
